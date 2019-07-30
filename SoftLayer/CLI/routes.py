@@ -102,6 +102,9 @@ ALL_ROUTES = [
     ('block:volume-modify', 'SoftLayer.CLI.block.modify:cli'),
     ('block:volume-order', 'SoftLayer.CLI.block.order:cli'),
     ('block:volume-set-lun-id', 'SoftLayer.CLI.block.lun:cli'),
+    ('block:subnet-add', 'SoftLayer.CLI.block.acl.subnet_add:cli'),
+    ('block:subnet-get', 'SoftLayer.CLI.block.acl.subnet_get:cli'),
+    ('block:subnet-remove', 'SoftLayer.CLI.block.acl.subnet_remove:cli'),
 
     ('event-log', 'SoftLayer.CLI.event_log'),
     ('event-log:get', 'SoftLayer.CLI.event_log.get:cli'),

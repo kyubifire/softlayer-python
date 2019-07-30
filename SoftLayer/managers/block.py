@@ -201,6 +201,49 @@ class BlockStorageManager(utils.IdentifierMixin, object):
         return self.client.call('Network_Storage', 'removeAccessFromHostList',
                                 host_templates, id=volume_id, **kwargs)
 
+    def get_subnets_in_acl(self, host_id, **kwargs):
+        """Retrieves list of subnets present in an ACL
+
+        :param host_id: Host from which the list of subnets is being retrieved
+        """
+
+        if 'mask' not in kwargs:
+            items = [
+                'id'
+            ]
+
+            kwargs['mask'] = ','.join(items)
+
+        return self.client.call('Network_Storage_Allowed_Host',
+                                'getSubnetsInAcl',
+                                id=host_id,
+                                **kwargs)
+
+    def assign_subnets_to_acl(self, host_id, subnet_id_list, **kwargs):
+        """Assigns subnets to a host with the given id
+
+        :param host_id: Host to which the subnets will be assigned
+        :param subnet_id_list: list of subnet ids to be added to host
+        """
+        return self.client.call('Network_Storage_Allowed_Host',
+                                'assignSubnetsToAcl',
+                                subnet_id_list,
+                                id=host_id,
+                                **kwargs)
+
+    def remove_subnets_from_acl(self, host_id, subnet_id_list):
+        """Removes subnets from a host with the given id
+
+        :param host_id: Host from which the subnets will be removed
+        :param subnet_id_list: list of subnet ids to be removed from host
+        """
+
+        return self.client.call('Network_Storage_Allowed_Host',
+                                'removeSubnetsFromAcl',
+                                subnet_id_list,
+                                id=host_id,
+                                **kwargs)
+
     def get_replication_partners(self, volume_id):
         """Acquires list of replicant volumes pertaining to the given volume.
 
